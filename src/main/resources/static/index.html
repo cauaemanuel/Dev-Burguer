@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV-BURGUER</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="../css/index.css" rel="stylesheet">
+</head>
+<body >
+
+    <div class="home">
+
+        <h1 class="titulo">DevBurguer</h1>
+        <h3 class="titulo2">Conheça o nosso cardápio</h3>
+
+
+       <ol class="catalogo" id="catalogoProdutos">
+       
+        
+      
+        </ol>
+       
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Carrinho</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+          
+            <div class="pedido">
+                <ol class="pedido-ul" id="carrinhoGeral">
+                <!---- <ul class="prod-pedido">
+                    
+                      <img src="">
+                    <div class="pedido-right">
+                      <h2>Hamburguer</h2>
+                    <h5>r99</h5>
+                  </div>
+                    
+                 
+                   <span>0</span>
+                 
+          
+                  </ul> --->
+                  
+                </ol>
+            </div>
+
+
+            <div class="cep-div">
+            <div class="cepbuscar">
+              <label for="">CEP</label>
+              <input type="text" name="" id="cep">
+              <button onclick="buscarCep()">Buscar</button>
+            </div>  
+              <label for="">Numero</label>
+              <input type="text" name="" id="Numero">
+
+              <label for="">Logradouro</label>
+              <input type="text" id="Logradouro">
+            </div>
+
+           
+            <div class="totaldiv">
+              <div>
+              <span>TOTAL = </span>
+              <span id="total">0</span>
+              </div>
+              <h2>+ Taxa de Entrega = 5 reais</h2>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="fecharCarrinho" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="meuBotao"><a>Enviar Pedido</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+       <footer>
+       
+<button type="button" class="btn btn-primary btn2" onclick="carrinhoReady()" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Carrinho<span id="carrinhoQuantidade">0</span>
+  </button>
+  
+       </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+
+
+    $(document).ready(function() {
+    $.ajax({
+        url: "http://localhost:8083/home",
+        method: "GET",
+        dataType: "json",
+        success: function(response) {
+          $.each(response, function(index, produto){
+
+            var listItem = "<li class='produto'>";
+              listItem += "<img id='imagemProduto' src='" + produto.url + "' alt='" + produto.nome + "'>";
+              listItem += "<h2 id='nomeProduto'>" + produto.nome + "</h2>";
+              listItem += "<h2 id='valorProduto'>$" + produto.valor + "</h2>";
+              listItem += "<div class='button-rage'>";
+              listItem += "<button class='button-rage-btn' onclick='diminuirQuantidade(\""+ produto.nome +"\")'>-</button>";
+              listItem += "<span id='quantidade_"+ produto.nome +"'>0</span>";
+              listItem += "<button class='button-rage-btn' onclick='aumentarQuantidade(\""+ produto.nome +"\")'>+</button>";
+              listItem += "</div>";
+              listItem += "</li>";
+
+        
+            $("#catalogoProdutos").append(listItem);
+
+          })
+            
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+           
+            console.error('Ocorreu um erro ao fazer a requisição: ' + error);
+
+        }
+    });
+});
+
+
+
+
+function diminuirQuantidade(nomeProduto) {
+    var spanQuantidade = document.getElementById("quantidade_" + nomeProduto);
+    var quantidade = parseInt(spanQuantidade.textContent);
+    var spanCarrinhoQuantidade = document.getElementById("carrinhoQuantidade");
+    var quantidadeCarrinho = parseInt(spanCarrinhoQuantidade.textContent);
+
+    if (quantidade > 0) {
+        quantidade--;
+        spanQuantidade.textContent = quantidade;
+        spanCarrinhoQuantidade.textContent = quantidadeCarrinho - 1;
+
+        var spanProdutoQuantidade = document.getElementById("quantidade_" + nomeProduto.replace(/ /g, "_"));
+        spanProdutoQuantidade.textContent = quantidade;
+    }
+}
+
+function aumentarQuantidade(nomeProduto) {
+    var spanQuantidade = document.getElementById("quantidade_" + nomeProduto);
+    var quantidade = parseInt(spanQuantidade.textContent);
+    var spanCarrinhoQuantidade = document.getElementById("carrinhoQuantidade");
+    var quantidadeCarrinho = parseInt(spanCarrinhoQuantidade.textContent);
+
+    quantidade++;
+    spanQuantidade.textContent = quantidade;
+    spanCarrinhoQuantidade.textContent = quantidadeCarrinho + 1;
+
+    var spanProdutoQuantidade = document.getElementById("quantidade_" + nomeProduto.replace(/ /g, "_"));
+    spanProdutoQuantidade.textContent = quantidade;
+}
+
+
+
+function carrinhoReady() {
+    var produtosLista = document.querySelectorAll(".produto");
+    var total = 0;
+
+    produtosLista.forEach(function(produto) {
+        var quantidade = parseInt(produto.querySelector("span").textContent);
+
+        if (quantidade > 0) {
+            var nome = produto.querySelector("#nomeProduto").textContent;
+            var valor = parseFloat(produto.querySelector("#valorProduto").textContent.replace("$", ""));
+            var imagemSrc = produto.querySelector("#imagemProduto").src;
+
+            var novoProdutoCarrinho = document.createElement("ul");
+            novoProdutoCarrinho.classList.add("prod-pedido");
+
+            novoProdutoCarrinho.innerHTML = `
+                <img src="${imagemSrc}" alt="${nome}">
+                <div class="pedido-right">
+                    <h2>${nome}</h2>
+                    <h5>$${valor}</h5>
+                </div>
+                <div class='button-rage'>
+                    <span id='quantidade_${nome}'>${quantidade}</span>
+                </div>
+            `;
+
+            document.getElementById("carrinhoGeral").appendChild(novoProdutoCarrinho);
+
+            total += quantidade * valor;
+        }
+    });
+
+    var totalElement = document.getElementById("total");
+    totalElement.textContent = "$" + total.toFixed(2); 
+
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+    myModal._element.addEventListener('hidden.bs.modal', function () {
+        document.getElementById("carrinhoGeral").innerHTML = "";
+    });
+}
+
+
+
+
+function buscarCep(){
+
+var cep = $('#cep').val();
+
+$.ajax({
+url: 'http://localhost:8083/home/' + cep, 
+method: 'GET', 
+dataType: 'json', 
+success: function(response) {
+
+
+$('#Logradouro').val(response.logradouro);
+
+},
+error: function(xhr, status, error) {
+  console.error('Erro na requisição AJAX:', error);
+}
+});
+}
+
+document.getElementById("meuBotao").addEventListener("click", function() {
+    // Pegando o total do pedido
+    var total = document.getElementById("total").textContent;
+
+    // Pegando o CEP, número da casa e localidade
+    var cep = document.getElementById("cep").value;
+    var numero = document.getElementById("Numero").value;
+    var localidade = document.getElementById("Logradouro").value;
+
+    // Inicializando a string da mensagem do WhatsApp
+    var mensagem = "Pedido:\n";
+    
+    // Percorrendo os produtos no carrinho
+    var produtosLista = document.querySelectorAll(".prod-pedido");
+    produtosLista.forEach(function(produto) {
+        var nome = produto.querySelector("h2").textContent;
+        var quantidade = produto.querySelector("span").textContent;
+        var valor = produto.querySelector("h5").textContent;
+        mensagem += `${nome} - Quantidade: ${quantidade} - Valor: ${valor}\n`;
+    });
+
+    // Montando a URL do WhatsApp com os dados do pedido
+    var url = `https://api.whatsapp.com/send/?phone=5581996585983&text=Total: ${total}%0D%0AEndereço:%0D%0ACEP: ${cep}%0D%0ANúmero: ${numero}%0D%0ALocalidade: ${localidade}%0D%0A${encodeURIComponent(mensagem)}`;
+
+    // Redirecionando o usuário para a URL do WhatsApp
+    window.location.href = url;
+});
+
+
+        
+    </script>
+</body>
+</html>

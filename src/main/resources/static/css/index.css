@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Hanken Grotesk", sans-serif;
+  
+}
+body{
+   
+    height: 100vh;
+    background-color: brown;
+}
+.home{
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 0 0;
+    margin: 30px;
+    height: 100vh;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    flex-direction: column;
+       
+}
+
+.produto{
+    background-color: wheat;
+    width: 250px;
+    height: 350px;
+    display: flex;
+    margin: 20px;   
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    
+}
+.catalogo{
+    width: 90%;   
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: 40px;
+    background-color: rgba(000, 000, 000, 0.5);
+    display: grid;
+    justify-content: center;
+    height: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+   
+}
+
+footer{
+   background-color: #3c3c3c;
+   height: 60px;
+   display: flex;
+   width: 100vw;
+   align-items: center;
+   justify-content: center;
+}
+
+.button-rage{
+    background-color: #d3a007;
+    padding: 5px;
+    border-radius: 12px;
+    margin: 10px;
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+}
+
+.button-rage-btn{
+    padding: 4px;
+    width: 80px;
+    border-radius: 12px;
+    border: none;
+    color: white;
+    background-color: #efb810;
+    cursor: pointer;
+}
+
+.button-rage-btn:hover{
+    scale: 1.1;
+    transition: 0.3s;
+}
+
+.btn2{
+    width: 100px;
+    padding: 10px;
+    color: white;
+    background-color: black;
+    border: none;
+    display: flex;
+    gap: 4px;
+}
+
+.btn2:hover .btn2:focus .btn2:{
+   scale: 1.1;
+   transition: 0.4s;
+   color: white;
+    background-color: black;
+}
+
+
+.modal-body{
+    background-color: #d3a007;
+}
+
+.pedido-ul{
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0;
+    
+}
+
+
+
+.prod-pedido{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content:space-around;
+    background-color: #3c3c3c;
+    height: 120px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+.prod-pedido img{
+    height: 90px;
+    border-radius: 15px;
+    
+}
+
+.prod-pedido h2{
+    color: white;
+    height: 15px;
+    padding: 10px;
+    align-items: center;
+}
+
+.prod-pedido h5{
+    height: 8px;
+    padding: 10px;
+    color: white;
+}
+
+.prod-pedido button{
+    width: 50px;
+    margin: 5px ;
+}
+
+.pedido-right{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pedido-left{
+    display: flex;
+   
+}
+
+.cep-div{
+    background-color: #3c3c3c;
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cep-div input{
+    margin: 10px;
+    border-radius: 15px;
+}
+
+#cep{
+    width: 120px;
+    padding: 6px;
+    border: none;
+}
+
+.cep-div button{
+    padding: 3px;
+    border-radius: 15px;
+    border: none;
+}
+
+#Numero{
+    padding: 3px;
+    border-radius: 15px;
+    border: none;
+    width: 70px;
+}
+#Logradouro{
+    padding: 3px;
+    border-radius: 15px;
+    border: none;
+}
+
+.totaldiv{
+    height: 90px;
+    background-color: #3c3c3c;
+    border-radius: 15px;
+    display: flex;
+    color: white;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.totaldiv h2{
+font-size: 13px;
+color: rgba(999, 999, 999, 0.5);
+}
+
+.modal-header {
+   color: white;
+    background-color: brown;
+}
+
+.modal-footer{
+    background-color: brown;
+}
+
+#imagemProduto{
+    height: 150px;
+    border-radius: 15px;
+}
